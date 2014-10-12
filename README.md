@@ -14,7 +14,7 @@ You need Java 1.6 or greater installed to use this.
 
  cd free-google-translate
 
- java -jar free-google-translate "Hello World!"
+ java -jar free-google-translate.jar "Hello World!"
 
 ```
 
