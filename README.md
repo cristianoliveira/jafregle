@@ -8,6 +8,7 @@ Clone and Run
 
 You need Java 1.6 or greater installed to use this.
 
+Using jar:
 ```
  
  git clone git@github.com:CristianOliveiraDaRosa/free-google-translate.git
@@ -16,6 +17,28 @@ You need Java 1.6 or greater installed to use this.
 
  java -jar free-google-translate.jar "Hello World!"
 
+```
+Using on code:
+```
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+public class test {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+            try {
+                //RUN! Camingoal! Camigoal!
+                System.out.println(FreeGtranslate.translate(args[0], FreeGtranslate.Language.ENGLISH, FreeGtranslate.Language.PORTUGUESE));
+            } catch (Exception ex) {
+                Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+            }
+	}
+
+}
 ```
 
 License
