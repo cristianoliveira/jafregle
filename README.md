@@ -1,5 +1,7 @@
-Free Google Translate
+Jafregle
 =====================
+
+Java Free Google Translate ou Jafregle
 
 Simple unoficial free google translate api.
 
@@ -11,11 +13,11 @@ You need Java 1.6 or greater installed to use this.
 Using jar:
 ```
  
- git clone git@github.com:CristianOliveiraDaRosa/free-google-translate.git
+ git clone git@github.com:CristianOliveiraDaRosa/jafregle.git
 
- cd free-google-translate
+ cd jafregle
 
- java -jar free-google-translate.jar "Hello World!"
+ java -jar jafregle.jar "Hello World!"
 
 ```
 Using on code:
@@ -32,7 +34,7 @@ public class test {
 	public static void main(String[] args) {
             try {
                 //RUN! Camingoal! Camigoal!
-                System.out.println(FreeGtranslate.translate(args[0], FreeGtranslate.Language.ENGLISH, FreeGtranslate.Language.PORTUGUESE));
+                System.out.println(Jafregle.translate(args[0], Jafregle.Language.ENGLISH, Jafregle.Language.PORTUGUESE));
             } catch (Exception ex) {
                 Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -43,20 +45,28 @@ public class test {
 
 License
 ====
-  Licensed to the Apache Software Foundation (ASF) under one or more
-  contributor license agreements.  See the NOTICE file distributed with
-  this work for additional information regarding copyright ownership.
-  The ASF licenses this file to You under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with
-  the License.  You may obtain a copy of the License at
+  The MIT License
+
+	Copyright (c) 2010-2014 Google, Inc. http://angularjs.org
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in
+	all copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+	THE SOFTWARE.
  
-       http://www.apache.org/licenses/LICENSE-2.0
- 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
- 
-  @author Cristian Oliveira - www.cristianoliveira.com.br
+  * Cristian Oliveira - www.cristianoliveira.com.br
+
 

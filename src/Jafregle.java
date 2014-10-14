@@ -20,7 +20,7 @@
  */
   
 
-public class FreeGtranslate 
+public class Jafregle 
 {
 	
 	static String GOOGLE_URL_API = "http://translate.google.com/translate_a/";	

@@ -11,7 +11,7 @@ public class test {
 	public static void main(String[] args) {
             try {
                 //RUN! Camingoal! Camigoal!
-                System.out.println(FreeGtranslate.translate(args[0], FreeGtranslate.Language.ENGLISH, FreeGtranslate.Language.PORTUGUESE));
+                System.out.println(Jafregle.translate(args[0], Jafregle.Language.ENGLISH, Jafregle.Language.PORTUGUESE));
             } catch (Exception ex) {
                 Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
             }
