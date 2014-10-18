@@ -28,10 +28,9 @@ Jafregle.translate("Hello world!", Jafregle.Language.ENGLISH, Jafregle.Language.
 
 License
 ====
-  The MIT License
+  Copyright (c) 2010-2014 Primous Soluções Inteligentes. http://primous.com.br
 
-	Copyright (c) 2010-2014 Google, Inc. http://angularjs.org
-
+	
 	Permission is hereby granted, free of charge, to any person obtaining a copy
 	of this software and associated documentation files (the "Software"), to deal
 	in the Software without restriction, including without limitation the rights
@@ -50,6 +49,8 @@ License
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
  
-  * Cristian Oliveira - www.cristianoliveira.com.br
+Autors
+====  
+Cristian Oliveira - www.cristianoliveira.com.br
 
 
