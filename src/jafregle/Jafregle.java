@@ -74,20 +74,23 @@ public class Jafregle
 
     public enum Language
     {
-        PORTUGUESE, ENGLISH, SPANISH;
+        PORTUGUESE("pt"), 
+        ENGLISH("en"), 
+        SPANISH("es"),
+        GERMAN("de"),
+        FRENCH("fr");
+        
+        private String value;
+        
+        Language(String value)
+        {
+        	this.value = value;
+        }
         
         @Override
         public String toString()
         {
-            switch (this) {
-            case PORTUGUESE:
-                return "pt";
-            case ENGLISH:
-                return "en";
-            case SPANISH:
-                return "es";
-            }
-            return null;
+            return this.value;
         }
     }
 }
