@@ -36,13 +36,15 @@ public class JafregleTest {
 
 	@Test
 	public void testEspanholToEnglish() throws Exception {
-		assertEquals("hello", Jafregle.translate("Hola", "es", "en"));
+		String res = Jafregle.translate("Hola", "es", "en");
+		assertEquals("hello", res);
 	}
 	
 	@Test
 	public void testEspanholToEnglishEnum() throws Exception {
-		assertEquals("hello", Jafregle.translate("Hola"
-				                                , Jafregle.Language.SPANISH
-				                                , Jafregle.Language.ENGLISH));
+		String res = Jafregle.translate("Hola"
+				                       , Jafregle.Language.SPANISH
+                                       , Jafregle.Language.ENGLISH);
+		assertEquals("hello", res);
 	}
 }
