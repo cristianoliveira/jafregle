@@ -25,7 +25,7 @@ public class WebHelper {
         URL myURL = new URL(fullUrl);
         HttpURLConnection httpCon = (HttpURLConnection)myURL.openConnection();
         httpCon.addRequestProperty("User-Agent", USERAGENT);
-        httpCon.setRequestMethod("GET");
+        httpCon.setRequestMethod(method.toString());
         httpCon.setRequestProperty("Accept-Charset", CHARSET);
         httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         httpCon.setRequestProperty("Content-Length", "" + Integer.toString(10000));
