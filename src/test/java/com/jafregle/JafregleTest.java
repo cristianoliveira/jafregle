@@ -1,25 +1,19 @@
-package tests;
+package test.java.com.jafregle;
 
-import static org.junit.Assert.*;
-import jafregle.Jafregle;
+import junit.framework.TestCase;
+import main.java.com.jafregle.Jafregle;
 
 import org.junit.Test;
 
-public class JafregleTest {
+public class JafregleTest extends TestCase{
 	
 	@Test
-	public void testEnglishEnum() throws Exception {
+	public void testLanguageEnum() throws Exception {
 		assertEquals("en", Jafregle.Language.ENGLISH.toString());
-	}
-
-	@Test
-	public void testSpanishEnum() throws Exception {
 		assertEquals("es", Jafregle.Language.SPANISH.toString());
-	}
-	
-	@Test
-	public void testPortugueseEnum() throws Exception {
 		assertEquals("pt", Jafregle.Language.PORTUGUESE.toString());
+		assertEquals("gr", Jafregle.Language.GERMAN.toString());
+		assertEquals("fr", Jafregle.Language.FRENCH.toString());
 	}
 	
 	@Test
@@ -44,5 +38,13 @@ public class JafregleTest {
 		assertEquals("hello", Jafregle.translate("Hola"
 				                                , Jafregle.Language.SPANISH
 				                                , Jafregle.Language.ENGLISH));
+	}
+	
+	@Test
+	public void testPrhaseTranslate() throws Exception {
+		assertEquals("This is a phrase translation", 
+				     Jafregle.translate("Isso é uma tradução de frase"
+				                       , Jafregle.Language.PORTUGUESE
+				                       , Jafregle.Language.ENGLISH));
 	}
 }

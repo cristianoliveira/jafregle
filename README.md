@@ -14,7 +14,7 @@ You can build the project with gradle.
 
  cd jafregle
 
- gradle build
+ gradle clean build test
 
 ```
 

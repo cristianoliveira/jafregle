@@ -1,4 +1,4 @@
-package jafregle;
+package main.java.com.jafregle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,20 +74,21 @@ public class Jafregle
 
     public enum Language
     {
-        PORTUGUESE, ENGLISH, SPANISH;
+        PORTUGUESE("pt"), 
+        ENGLISH("en"), 
+        FRENCH("fr"), 
+        GERMAN("gr"), 
+        SPANISH("es");
+        
+        String value;
+        
+        private Language(String value) {
+        	this.value = value;
+        }
         
         @Override
-        public String toString()
-        {
-            switch (this) {
-            case PORTUGUESE:
-                return "pt";
-            case ENGLISH:
-                return "en";
-            case SPANISH:
-                return "es";
-            }
-            return null;
+        public String toString(){
+        	return this.value;
         }
     }
 }
