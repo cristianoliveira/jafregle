@@ -4,8 +4,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
-
 
 public class WebHelper {
 	
@@ -28,7 +26,7 @@ public class WebHelper {
         httpCon.setRequestMethod(method.toString());
         httpCon.setRequestProperty("Accept-Charset", CHARSET);
         httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        httpCon.setRequestProperty("Content-Length", "" + Integer.toString(10000));
+        httpCon.setRequestProperty("Content-Length", String.valueOf(parameters.getBytes(CHARSET).length));
         httpCon.setRequestProperty("Content-Language", "en-US");
         
         if(method == Method.POST)
