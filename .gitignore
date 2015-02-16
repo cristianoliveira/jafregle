@@ -1,1 +1,5 @@
 bin/
+/build/
+/.idea/
+/.gradle/
+/.settings/

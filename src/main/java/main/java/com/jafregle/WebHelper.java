@@ -6,21 +6,23 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class WebHelper {
-	
-	private static String USERAGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0";
-	private static String CHARSET   = "UTF-8";
-	
-	public static String access(String url, String parameters) throws Exception {
-		return access(url, parameters, Method.GET);
-	}
-	public static String access(String url, String parameters, Method method) throws Exception {
+    
+    private static String USERAGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0";
+    private static String CHARSET   = "UTF-8";
+    
+    public String access(String url, String parameters) throws Exception {
+        return access(url, parameters, Method.GET);
+    }
+    
+    public String access(String url, String parameters, Method method) throws Exception {
         
-		String fullUrl = url;
+        StringBuilder fullUrl = new StringBuilder();
+        fullUrl.append(url);
         
         if(method == Method.GET)
-        	fullUrl += parameters;
+            fullUrl.append(parameters);
         
-        URL myURL = new URL(fullUrl);
+        URL myURL = new URL(fullUrl.toString());
         HttpURLConnection httpCon = (HttpURLConnection)myURL.openConnection();
         httpCon.addRequestProperty("User-Agent", USERAGENT);
         httpCon.setRequestMethod(method.toString());
@@ -31,11 +33,11 @@ public class WebHelper {
         
         if(method == Method.POST)
         {
-        	httpCon.setDoOutput(true);
-        	
-        	OutputStreamWriter writer = new OutputStreamWriter(httpCon.getOutputStream());
-	        writer.write(parameters);
-	        writer.flush();
+            httpCon.setDoOutput(true);
+            
+            OutputStreamWriter writer = new OutputStreamWriter(httpCon.getOutputStream());
+            writer.write(parameters);
+            writer.flush();
         }
         
         BufferedReader in = new BufferedReader(new InputStreamReader(httpCon.getInputStream(), CHARSET));
@@ -50,25 +52,25 @@ public class WebHelper {
 
         return response.toString();
     }
-	
-	public enum Method
-	{
-		
-		POST("POST"), 
-		GET("GET"), 
-		DELETE("DELETE"), 
-		PUT("PUT");
-		
-		private String val;
-		Method(String val)
-		{
-			this.val = val;
-		}
-		
-		@Override
-		public String toString()
-		{
-			return this.val;
-		}
-	}
+    
+    public enum Method
+    {
+        
+        POST("POST"), 
+        GET("GET"), 
+        DELETE("DELETE"), 
+        PUT("PUT");
+        
+        private String val;
+        Method(String val)
+        {
+            this.val = val;
+        }
+        
+        @Override
+        public String toString()
+        {
+            return this.val;
+        }
+    }
 }
