@@ -114,9 +114,9 @@ public class Jafregle
     }
     
     /**
-     *  Translate text string from language (Param "from") to especific language (Param "to") 
+     *  Get all cached translates 
      *
-     * @return String with last text translated
+     * @return List<String> List of cached translates
      * 
      */
     public List<String> getCachedTranslate()
