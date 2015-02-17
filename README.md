@@ -4,9 +4,21 @@ Java Free Google Translate or Jafregle
 
 Simple unofficial free google translate library.
 
-More simple than that?
+#How it works?
 
-#Cloning and Building
+It uses a alternative google url to request the translate that's why this lib may have performance issues. Recommended to use only in prototypes applications. 
+
+###Is it free?
+
+Yes.
+
+###Should I use this in my Production Application?
+
+Maybe. You need performance?
+
+
+#Using
+More simple than that?
 
 You can build the project with gradle.
 

@@ -6,6 +6,7 @@ import main.java.com.jafregle.Jafregle.Language;
 import main.java.com.jafregle.JafregleParamsException;
 
 import org.junit.Test;
+import org.junit.runners.JUnit4;
 
 public class JafregleTest extends TestCase{
 	
@@ -60,7 +61,7 @@ public class JafregleTest extends TestCase{
 		Jafregle j = new Jafregle(Language.PORTUGUESE, Language.ENGLISH);
 		String translated = j.translate("Hello");
 		
-		assertEquals(translated, j.getCachedTranslate());
+		assertEquals(translated, j.getLastTranslate());
 	}
 	
 	@Test
@@ -69,6 +70,8 @@ public class JafregleTest extends TestCase{
 		Jafregle invalid = new Jafregle("", "");
 		try {
 			String foo = invalid.translate("foo");
+
+            fail("Without params it must raise a error");
 		} catch (Exception e) {
 			assertEquals(e.getClass(), JafregleParamsException.class);
 		}
