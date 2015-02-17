@@ -70,7 +70,6 @@ public class JafregleTest extends TestCase{
 		Jafregle invalid = new Jafregle("", "");
 		try {
 			String foo = invalid.translate("foo");
-
             fail("Without params it must raise a error");
 		} catch (Exception e) {
 			assertEquals(e.getClass(), JafregleParamsException.class);
