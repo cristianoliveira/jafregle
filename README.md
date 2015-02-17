@@ -12,7 +12,7 @@ It uses a alternative google url to request the translate that's why this lib ma
 
 Yes.
 
-###Should I use this in my Production Application?
+###Should I use it in my Production Application?
 
 Maybe. You need performance?
 
