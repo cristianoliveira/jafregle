@@ -6,7 +6,8 @@ Simple unofficial free google translate library.
 
 #How it works?
 
-It uses a alternative google url to request the translate that's why this lib may have performance issues. Recommended to use only in prototypes applications. 
+It uses an alternative google url to request the translate that's why this lib may have performance issues. 
+Recommended to use only in prototypes applications. 
 
 ###Is it free?
 
