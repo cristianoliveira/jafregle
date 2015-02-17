@@ -40,14 +40,14 @@ public class Jafregle
     
     public Jafregle(String from, String to)
     {
-    	this.from = from;
-    	this.to   = to;
+        this.from = from;
+        this.to   = to;
     }
     
     public Jafregle(Language from, Language to)
     {
-    	this.from = from.toString();
-    	this.to   = to.toString();
+        this.from = from.toString();
+        this.to   = to.toString();
     }
     
     /**
@@ -60,7 +60,7 @@ public class Jafregle
      */
     public String translate(String textToTranslate) throws Exception
     {
-    	return translate(textToTranslate, from, to);
+        return translate(textToTranslate, from, to);
     }
     
     /**
@@ -88,9 +88,9 @@ public class Jafregle
      */
     public String translate(String textToTranslate, String from, String to) throws Exception
     {
-    	if(textToTranslate.isEmpty() || from.isEmpty() || to.isEmpty() )
-    		throw new JafregleParamsException();
-    	
+        if(textToTranslate.isEmpty() || from.isEmpty() || to.isEmpty() )
+            throw new JafregleParamsException();
+        
            String encodedText = java.net.URLEncoder.encode(textToTranslate, "UTF-8");
            String params      = String.format(GOOGLE_PARAMS, encodedText, from, from, to);
            String result      = new WebHelper().access(GOOGLE_URL_API, params);
@@ -110,7 +110,7 @@ public class Jafregle
      */
     public String getLastTranslate()
     {
-    	return cachedTranslates.get(cachedTranslates.size() - 1);
+        return cachedTranslates.get(cachedTranslates.size() - 1);
     }
     
     /**
@@ -121,7 +121,7 @@ public class Jafregle
      */
     public List<String> getCachedTranslate()
     {
-    	return cachedTranslates;
+        return cachedTranslates;
     }
     
     private String castResult(String result)
@@ -149,12 +149,12 @@ public class Jafregle
         String value;
         
         private Language(String value) {
-        	this.value = value;
+            this.value = value;
         }
         
         @Override
         public String toString(){
-        	return this.value;
+            return this.value;
         }
     }
 }
