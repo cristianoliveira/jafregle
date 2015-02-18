@@ -1,5 +1,7 @@
-Jafregle
+Jafregle 
 =====================
+[![Build Status](https://travis-ci.org/CristianOliveiraDaRosa/jafregle.svg?branch=master)](https://travis-ci.org/CristianOliveiraDaRosa/jafregle)
+---
 Java Free Google Translate or Jafregle
 
 Simple unofficial free google translate library.
