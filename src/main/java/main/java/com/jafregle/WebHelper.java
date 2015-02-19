@@ -1,8 +1,11 @@
 package main.java.com.jafregle;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 
 public class WebHelper {
@@ -10,11 +13,11 @@ public class WebHelper {
     private static String USERAGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0";
     private static String CHARSET   = "UTF-8";
     
-    public String access(String url, String parameters) throws Exception {
+    public String access(String url, String parameters) throws IOException {
         return access(url, parameters, Method.GET);
     }
     
-    public String access(String url, String parameters, Method method) throws Exception {
+    public String access(String url, String parameters, Method method) throws IOException  {
         
         StringBuilder fullUrl = new StringBuilder();
         fullUrl.append(url);

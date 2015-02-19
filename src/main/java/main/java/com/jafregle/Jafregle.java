@@ -1,9 +1,13 @@
 package main.java.com.jafregle;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import main.java.com.jafregle.translators.FreeGoogleTranslator;
+import main.java.com.jafregle.translators.ITranslator;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -28,15 +32,12 @@ import java.util.regex.Pattern;
 
 public class Jafregle 
 {
-    
-    private final String GOOGLE_URL_API = "http://translate.google.com/translate_a/";    
-    private final String GOOGLE_PARAMS  = "t?client=t&text=%s&hl=%s&sl=%s&tl=%s&ie=UTF-8&oe=UTF-8&multires=1&otf=1&ssel=3&tsel=3&sc=1";
-    private final String PATTERN = "\"([^\"]*?)\"";
-    
-    private List<String> cachedTranslates = new ArrayList<String>();
-    
     private String from;
     private String to;
+    
+    private ITranslator translator;
+    
+    private JafregleCache jafregleCache;
     
     public Jafregle(String from, String to)
     {
@@ -46,9 +47,10 @@ public class Jafregle
     
     public Jafregle(Language from, Language to)
     {
-        this.from = from.toString();
-        this.to   = to.toString();
+        this.from = from.value();
+        this.to   = to.value();
     }
+    
     
     /**
      *  Translate text string from language (Param "from") 
@@ -58,7 +60,7 @@ public class Jafregle
      * @return                  String with text translated
      * 
      */
-    public String translate(String textToTranslate) throws Exception
+    public String translate(String textToTranslate) throws IOException
     {
         return translate(textToTranslate, from, to);
     }
@@ -72,9 +74,9 @@ public class Jafregle
      * @return                  String whit text translated
      * 
      */
-    public String translate(String textToTranslate, Language from, Language to) throws Exception
+    public String translate(String textToTranslate, Language from, Language to) throws IOException
     {
-        return translate(textToTranslate, from.toString(), to.toString());
+        return translate(textToTranslate, from.value(), to.value());
     }
     
     /**
@@ -86,75 +88,60 @@ public class Jafregle
      * @return                  String with text translated
      * 
      */
-    public String translate(String textToTranslate, String from, String to) throws Exception
+    public String translate(String textToTranslate, String from, String to) throws JafregleParamsException, IOException
     {
         if(textToTranslate.isEmpty() || from.isEmpty() || to.isEmpty() )
-            throw new JafregleParamsException();
+        {
+           throw new JafregleParamsException();
+        }
         
-           String encodedText = java.net.URLEncoder.encode(textToTranslate, "UTF-8");
-           String params      = String.format(GOOGLE_PARAMS, encodedText, from, from, to);
-           String result      = new WebHelper().access(GOOGLE_URL_API, params);
+        String raw = getTranslator().requestTranslation(textToTranslate, from, to);
            
-           String raw = castResult(result);
+        getCacheHandler().add(raw);
            
-           cachedTranslates.add(raw);
-           
-           return raw;
+        return raw;
     }
     
     /**
-     *  Return last translated text
+     * Set translator to be used
      *
-     *  @return String 
+     * @param  translator       ITranslator Interface
      * 
      */
-    public String getLastTranslate()
+    public void setTranslator(ITranslator translator)
     {
-        return cachedTranslates.get(cachedTranslates.size() - 1);
+    	this.translator = translator;
     }
     
     /**
-     *  Get all cached translates 
+     * Get current translator 
      *
-     * @return List<String> List of cached translates
+     * @return  translator       ITranslator Interface
      * 
      */
-    public List<String> getCachedTranslate()
+    public ITranslator getTranslator() 
     {
-        return cachedTranslates;
+    	if (translator == null) 
+    	{
+    		translator = new FreeGoogleTranslator();
+    	}
+    	
+    	return translator;
     }
     
-    private String castResult(String result)
+    /**
+     * Get cache handler
+     *
+     * @return  JafregleCache    
+     * 
+     */
+    public JafregleCache getCacheHandler()
     {
-        Pattern pat = Pattern.compile(PATTERN);
-        List<String> allMatches = new ArrayList<String>();
-        
-        Matcher matcher = pat.matcher(result);
-        
-        while (matcher.find()) {
-            allMatches.add(matcher.group().replace("\"", ""));
-        }
-        
-        return allMatches.get(0);
-    }
-
-    public enum Language
-    {
-        PORTUGUESE("pt"), 
-        ENGLISH("en"), 
-        FRENCH("fr"), 
-        GERMAN("gr"), 
-        SPANISH("es");
-        
-        String value;
-        
-        private Language(String value) {
-            this.value = value;
-        }
-        
-        @Override
-        public String toString(){
-            return this.value;
-        }
+    	if(jafregleCache == null)
+    	{
+    		jafregleCache = new JafregleCache();
+    	}
+    	
+    	return jafregleCache;
     }
 }
