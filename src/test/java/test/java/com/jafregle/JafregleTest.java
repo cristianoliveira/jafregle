@@ -33,11 +33,7 @@ public class JafregleTest extends TestCase {
     @Before
     public void setTranslatorsToTest()
     {
-    	GoogleTranslator googleTranslator = new GoogleTranslator();
-    	googleTranslator.setGoogleKey("AIzaSyBgY1lZxik73mVrG2SDalAW5zsoaTuflcM");
-    	
     	translators.add(new FreeGoogleTranslator());
-    	translators.add(googleTranslator);
     }
     
     @Mock
