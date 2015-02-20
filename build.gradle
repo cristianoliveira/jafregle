@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 //Version of application
-version = '1.0.1'
+version = '1.0.2'
 
 repositories {
     mavenCentral()
@@ -9,6 +9,7 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
+	testCompile "org.mockito:mockito-core:1.+"
 }
 
 task showThanks {
