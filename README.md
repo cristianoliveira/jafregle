@@ -61,7 +61,7 @@ JafregleTest.class
     	translators.add(new FreeGoogleTranslator());
     	translators.add(new YourNewTranslator());
     }
-``
+```
 
 
 License
