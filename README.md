@@ -24,13 +24,12 @@ More simple than that?
 
 You can build the project with gradle.
 
-```
- git clone git@github.com:CristianOliveiraDaRosa/jafregle.git
+```   
+    git clone git@github.com:CristianOliveiraDaRosa/jafregle.git
 
- cd jafregle
+    cd jafregle
 
- gradle clean build test
-
+    gradle clean build test
 ```
 
 The jar is going to build inside of "build" folder.
