@@ -88,18 +88,18 @@ public class Jafregle
      * @return                  String with text translated
      * 
      */
-    public String translate(String textToTranslate, String from, String to) throws JafregleParamsException, IOException
+    public String translate(String textToTranslate, String from, String to) throws IllegalArgumentException, IOException
     {
         if(textToTranslate.isEmpty() || from.isEmpty() || to.isEmpty() )
         {
-           throw new JafregleParamsException();
+           throw new IllegalArgumentException("All params must be informed");
         }
         
-        String raw = getTranslator().requestTranslation(textToTranslate, from, to);
+        String result = getTranslator().requestTranslation(textToTranslate, from, to);
            
-        getCacheHandler().add(raw);
+        getCacheHandler().add(result);
            
-        return raw;
+        return result;
     }
     
     /**
@@ -110,7 +110,7 @@ public class Jafregle
      */
     public void setTranslator(ITranslator translator)
     {
-    	this.translator = translator;
+        this.translator = translator;
     }
     
     /**
@@ -121,12 +121,12 @@ public class Jafregle
      */
     public ITranslator getTranslator() 
     {
-    	if (translator == null) 
-    	{
-    		translator = new FreeGoogleTranslator();
-    	}
-    	
-    	return translator;
+        if (translator == null) 
+        {
+            translator = new FreeGoogleTranslator();
+        }
+        
+        return translator;
     }
     
     /**
@@ -137,11 +137,11 @@ public class Jafregle
      */
     public JafregleCache getCacheHandler()
     {
-    	if(jafregleCache == null)
-    	{
-    		jafregleCache = new JafregleCache();
-    	}
-    	
-    	return jafregleCache;
+        if(jafregleCache == null)
+        {
+            jafregleCache = new JafregleCache();
+        }
+        
+        return jafregleCache;
     }
 }

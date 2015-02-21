@@ -25,11 +25,11 @@ More simple than that?
 You can build the project with gradle.
 
 ```   
-    git clone git@github.com:CristianOliveiraDaRosa/jafregle.git
+ $ git clone git@github.com:CristianOliveiraDaRosa/jafregle.git
 
-    cd jafregle
+ $ cd jafregle
 
-    gradle clean build test
+ $ gradle clean build test
 ```
 
 The jar is going to build inside of "build" folder.
@@ -51,17 +51,6 @@ Add the jar in your project and use:
 Fork this repository implement a new Translator/Feature and do a push. Easy.
 
 **IMPORTANT: For new features only will be accepted push with Unit Tests.
-
-For new Translators only set it here:
-JafregleTest.class
-```
-   @Before
-    public void setTranslatorsToTest()
-    {
-    	translators.add(new FreeGoogleTranslator());
-    	translators.add(new YourNewTranslator());
-    }
-```
 
 
 License

@@ -3,7 +3,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class WebHelper {
@@ -12,66 +14,63 @@ public class WebHelper {
     private static String CHARSET   = "UTF-8";
     
     public String access(String url, String parameters) throws IOException {
-        return access(url, parameters, Method.GET);
+        return requestGET(url, parameters);
     }
     
-    public String access(String url, String parameters, Method method) throws IOException  {
+    public String requestPOST(String url, String parameters) throws IOException  {
         
         StringBuilder fullUrl = new StringBuilder();
         fullUrl.append(url);
         
-        if(method == Method.GET)
-            fullUrl.append(parameters);
-        
         URL myURL = new URL(fullUrl.toString());
         HttpURLConnection httpCon = (HttpURLConnection)myURL.openConnection();
-        httpCon.addRequestProperty("User-Agent", USERAGENT);
-        httpCon.setRequestMethod(method.toString());
-        httpCon.setRequestProperty("Accept-Charset", CHARSET);
-        httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        httpCon.setRequestProperty("Content-Length", String.valueOf(parameters.getBytes(CHARSET).length));
-        httpCon.setRequestProperty("Content-Language", "en-US");
         
-        if(method == Method.POST)
-        {
-            httpCon.setDoOutput(true);
+        httpCon.setDoOutput(true);
             
-            OutputStreamWriter writer = new OutputStreamWriter(httpCon.getOutputStream());
-            writer.write(parameters);
-            writer.flush();
-        }
+        OutputStreamWriter writer = new OutputStreamWriter(httpCon.getOutputStream());
+        writer.write(parameters);
+        writer.flush();
         
-        BufferedReader in = new BufferedReader(new InputStreamReader(httpCon.getInputStream(), CHARSET));
-
-        StringBuilder response = new StringBuilder();
-        String inputLine;
-
-        while ((inputLine = in.readLine()) != null) 
-               response.append(inputLine);
-
-        in.close();
-
-        return response.toString();
+        return doRequest(httpCon);
     }
     
-    public enum Method
+    public String requestGET(String url, String params) throws IOException
     {
-        
-        POST("POST"), 
-        GET("GET"), 
-        DELETE("DELETE"), 
-        PUT("PUT");
-        
-        private String val;
-        Method(String val)
-        {
-            this.val = val;
-        }
-        
-        @Override
-        public String toString()
-        {
-            return this.val;
-        }
+    	 StringBuilder fullUrl = new StringBuilder();
+         fullUrl.append(url);
+         fullUrl.append(params);
+         
+         URL myURL = new URL(fullUrl.toString());
+         HttpURLConnection httpCon = (HttpURLConnection)myURL.openConnection();
+         httpCon.setRequestMethod("GET");
+         httpCon.setRequestProperty("Content-Length", String.valueOf(params.getBytes(CHARSET).length));
+         
+		 return doRequest(httpCon);
+
+    }
+
+	private String doRequest(HttpURLConnection httpCon) throws IOException {
+		 
+		setDefaultSettingsTo(httpCon);
+		
+		 BufferedReader in = new BufferedReader(new InputStreamReader(httpCon.getInputStream(), CHARSET));
+
+         StringBuilder response = new StringBuilder();
+         String inputLine;
+
+         while ((inputLine = in.readLine()) != null) 
+                response.append(inputLine);
+
+         in.close();
+         
+		return response.toString();
+	}
+    
+    private void setDefaultSettingsTo(HttpURLConnection httpCon)
+    {
+    	httpCon.addRequestProperty("User-Agent", USERAGENT);
+        httpCon.setRequestProperty("Accept-Charset", CHARSET);
+        httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        httpCon.setRequestProperty("Content-Language", "en-US");
     }
 }

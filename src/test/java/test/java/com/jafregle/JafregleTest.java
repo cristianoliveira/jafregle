@@ -1,168 +1,123 @@
 package test.java.com.jafregle;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import junit.framework.TestCase;
 import main.java.com.jafregle.Jafregle;
 import main.java.com.jafregle.Language;
-import main.java.com.jafregle.translators.FreeGoogleTranslator;
-import main.java.com.jafregle.translators.GoogleTranslator;
 import main.java.com.jafregle.translators.ITranslator;
-import main.java.com.jafregle.JafregleParamsException;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import static org.mockito.Mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JafregleTest extends TestCase {
+
+    @Mock private ITranslator mockedTranlator;
+    @Mock private Jafregle mockedJafregle;
+    private String mockedInput  = "test input";
+    private String mockedResult = "test result";
     
-    private final String ENGLISH    = "en";
-    private final String SPANISH    = "es";
-    private final String PORTUGUESE = "pt";
-    private final String GERMAN     = "gr";
-    private final String FRENCH     = "fr";
-    
-    List<ITranslator> translators   = new ArrayList<ITranslator>();
     
     @Before
-    public void setTranslatorsToTest()
+    public void setTranslatorsToTest() throws IOException
     {
-    	translators.add(new FreeGoogleTranslator());
-    }
-    
-    @Mock
-    private ITranslator mockedTranlator;
-    
-    @Test
-    public void testLanguageEnum() throws Exception {
-        assertEquals(ENGLISH   , Language.ENGLISH.value());
-        assertEquals(SPANISH   , Language.SPANISH.value());
-        assertEquals(PORTUGUESE, Language.PORTUGUESE.value());
-        assertEquals(GERMAN    , Language.GERMAN.value());
-        assertEquals(FRENCH    , Language.FRENCH.value());
-    }
-    
-    @Test
-    public void testEnglishToPortuguese() throws Exception {
-        Jafregle j = new Jafregle(ENGLISH, PORTUGUESE);
+        // set up jafregle
+        mockedJafregle  = mock(Jafregle.class);
+        when(mockedJafregle.translate(mockedInput)).thenReturn(mockedResult);
         
-        for (ITranslator translator : translators) {
-			j.setTranslator(translator);
-		    assertEquals("funciona", j.translate("It works"));
-        }
+        // set up translator
+        mockedTranlator = Mockito.mock(ITranslator.class);
+        when(mockedTranlator.requestTranslation( mockedInput
+                                               , Language.ENGLISH.value()
+                                               , Language.PORTUGUESE.value())).
+        thenReturn(mockedResult);
     }
     
     @Test
-    public void testEnglishToPortugueseEnum() throws Exception {
+    public void whenEnglishToPortugueseGivenItWorksShouldReturnFunciona() throws IOException {
+        
+        // when
         Jafregle j = new Jafregle(Language.ENGLISH, Language.PORTUGUESE);
+        String input = "It works";
+        String resultExpected = "funciona";
         
-        for (ITranslator translator : translators) {
-			j.setTranslator(translator);
-			assertEquals("funciona", j.translate("It works"));
-	    }
-    }
-
-    @Test
-    public void testEspanholToEnglish() throws Exception {
-        Jafregle j = new Jafregle(SPANISH, ENGLISH);
+        //when
+        String result = j.translate(input);
         
-        for (ITranslator translator : translators) {
-			j.setTranslator(translator);
-			assertEquals("hello", j.translate("Hola"));
-	    }   
+        // then
+        assertEquals(resultExpected, result);
     }
     
     @Test
-    public void testEspanholToEnglishEnum() throws Exception {
-        Jafregle j = new Jafregle(Language.SPANISH, Language.ENGLISH);
+    public void whenSpanishToEnglishGivenHelloShouldReturnHola() throws IOException {
         
-        for (ITranslator translator : translators) {
-			j.setTranslator(translator);
-		    assertEquals("hello", j.translate("Hola"));
-		}
+        // given
+        Jafregle j = new Jafregle(Language.ENGLISH, Language.SPANISH);
+        String input = "hello";
+        String resultExpected = "hola";
+        
+        // when
+        String result = j.translate(input);
+        
+        // then
+        assertEquals(resultExpected, result);
     }
     
     @Test
-    public void testPrhaseTranslate() throws Exception {
-        Jafregle j = new Jafregle(Language.PORTUGUESE, Language.ENGLISH);
+    public void whenGivenMoreThanOneWordShouldItWorks() throws IOException {
         
-        for (ITranslator translator : translators) {
-			j.setTranslator(translator);
-			assertEquals("A translated phrase",j.translate("Uma frase traduzida"));
-		}
+        // given
+        Jafregle j = new Jafregle(Language.ENGLISH, Language.PORTUGUESE);
+        String input = "a big phrase with many words";
+        String resultExpected = "uma grande frase com muitas palavras";
+        
+        // when
+        String result = j.translate(input);
+        
+        // then
+        assertEquals(resultExpected, result);
     }
     
     @Test 
-    public void testCachedTranslate() throws Exception
-    {
-        Jafregle j = new Jafregle(Language.PORTUGUESE, Language.ENGLISH);
-        String translated = j.translate("Hello");
+    public void givenAnythingWhenTranslateItShouldToCacheIt() throws Exception
+    {   
+        Jafregle j = new Jafregle(Language.ENGLISH, Language.ENGLISH);
         
-        assertEquals(translated, j.getCacheHandler().getLast());
+        // when
+        String result = j.translate(mockedInput);
+        String resultExpected = j.getCacheHandler().getLast();
+        
+        // then
+        assertEquals(resultExpected, result);
     }
     
     @Test
-    public void testNewTranslator()
+    public void whenSetNewTranslatorItShouldWorks() throws IOException
     {
-    	Jafregle j =  new Jafregle(Language.ENGLISH, Language.FRENCH);
-    	j.setTranslator(new TestFakeTranslator());
-    	
-    	try {
-			assertEquals("It is fake", j.translate("It is fake"));
-		} catch (IOException e) {
-			fail(e.getMessage());
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
+        // when
+        mockedJafregle.setTranslator(mockedTranlator);
+        String result = mockedJafregle.translate(mockedInput);
+        
+        //then
+        assertEquals(mockedResult, result);
     }
     
-    @Test
-    public void testMockedTranslater(){
-    	String textToTranslate = "It works";
-    	String textResult = "funciona";
-    	
-    	FreeGoogleTranslator mockedTranlator = Mockito.mock(FreeGoogleTranslator.class);
-    	try {
-			Mockito.when(mockedTranlator.requestTranslation(textToTranslate, Language.ENGLISH.value(), Language.PORTUGUESE.value()))
-			       .thenReturn(textResult);
-			
-			Jafregle j = new Jafregle(Language.ENGLISH, Language.PORTUGUESE);
-			j.setTranslator(mockedTranlator);
-			
-			String result = j.translate(textToTranslate);
-			
-			assertEquals(result, textResult);
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
-    }
-    
-    @Test
-    public void testInvalidParams()
+    @Test(expected=IllegalArgumentException.class)
+    public void givenWrongParamsItShouldToRaiseException() throws IOException
     {
+        // given
         Jafregle invalid = new Jafregle("", "");
-        try {
-            String foo = invalid.translate("foo");
-            fail("Without params it must raise a error");
-        } catch (Exception e) {
-            assertEquals(e.getClass(), JafregleParamsException.class);
-        }
+        
+        // when 
+        invalid.translate("");
+        
+        // then raise a Excepion
     }
     
-    
-    class TestFakeTranslator implements ITranslator
-    {
-		@Override
-		public String requestTranslation(String textToTranslate, String from,String to) throws IOException {
-			return textToTranslate;
-		}
-    	
-    }
 }
