@@ -1,10 +1,6 @@
 package main.java.com.jafregle;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import main.java.com.jafregle.translators.FreeGoogleTranslator;
 import main.java.com.jafregle.translators.ITranslator;
