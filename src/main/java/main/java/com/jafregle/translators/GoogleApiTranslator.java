@@ -2,7 +2,11 @@ package main.java.com.jafregle.translators;
 
 import java.io.IOException;
 
-import main.java.com.jafregle.WebHelper;
+import main.java.com.jafregle.http.HttpClient;
+import main.java.com.jafregle.http.HttpMethod;
+import main.java.com.jafregle.http.HttpParameter;
+import main.java.com.jafregle.http.HttpParameterSet;
+import main.java.com.jafregle.http.HttpResponse;
 
 public class GoogleApiTranslator implements ITranslator{
 
@@ -24,11 +28,10 @@ public class GoogleApiTranslator implements ITranslator{
         
         String encodedText = java.net.URLEncoder.encode(textToTranslate, "UTF-8");
         
-        String params      = String.format(GOOGLE_API_PARAMS, googleKey, encodedText, from, to);
+        String params = String.format(GOOGLE_API_PARAMS, googleKey, encodedText, from, to);
         
-        String result      = new WebHelper().access(GOOGLE_API_URL, params);
-        
-       return result;
+        HttpResponse result = new HttpClient().request(HttpMethod.GET, new StringBuilder(GOOGLE_API_URL).append(params).toString());
+        return result.asString();
     }
 
 }

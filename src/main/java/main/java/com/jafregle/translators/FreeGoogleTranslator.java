@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import main.java.com.jafregle.WebHelper;
+import main.java.com.jafregle.http.HttpClient;
+import main.java.com.jafregle.http.HttpMethod;
+import main.java.com.jafregle.http.HttpResponse;
 
 public class FreeGoogleTranslator implements ITranslator {
     
@@ -19,9 +21,10 @@ public class FreeGoogleTranslator implements ITranslator {
     {
         String encodedText = java.net.URLEncoder.encode(textToTranslate, "UTF-8");
         String params      = String.format(GOOGLE_PARAMS, encodedText, from, from, to);
-        String result      = new WebHelper().access(GOOGLE_URL_API, params);
         
-        return castResult(result);
+        HttpResponse result = new HttpClient().request(HttpMethod.GET, new StringBuilder(GOOGLE_URL_API).append(params).toString());
+        
+        return castResult(result.asString());
     }
     
     private String castResult(String result)
