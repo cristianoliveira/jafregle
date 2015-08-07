@@ -19,7 +19,7 @@ public class FreeGoogleTranslatorTest extends TestCase {
         String from = Language.PORTUGUESE.value();
         String to = Language.ENGLISH.value();
         String input = "Funciona";
-        String resultExpected = "Works";
+        String resultExpected = "It works";
         
         // when
         String result = translator.requestTranslation(input, from, to);
