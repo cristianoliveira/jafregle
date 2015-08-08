@@ -41,7 +41,7 @@ public class JafregleTest extends TestCase {
         
         // when
         String input = "It works";
-        String resultExpected = "Funciona";
+        String resultExpected = "Isso funciona";
         
         //when
         String result = jafregle.translate(input, Language.ENGLISH, Language.PORTUGUESE);
@@ -102,17 +102,4 @@ public class JafregleTest extends TestCase {
         //then
         assertEquals(mockedResult, result);
     }
-    
-    @Test(expected=IllegalArgumentException.class)
-    public void givenWrongParamsItShouldToRaiseException() throws IOException
-    {
-        // given
-        Jafregle invalid = new Jafregle("", "");
-        
-        // when 
-        invalid.translate("");
-        
-        // then raise a Excepion
-    }
-    
 }
